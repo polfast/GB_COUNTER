@@ -1,4 +1,4 @@
-const CACHE = "gbcounter-v2"; // <- PODBIJAJ: v5, v6 przy kolejnych zmianach
+const CACHE = "gbcounter-v3"; // <- PODBIJAJ: v5, v6 przy kolejnych zmianach
 const ASSETS = [
   "./",
   "./index.html",
