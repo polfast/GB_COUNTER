@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0f14" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Route Box Counter</title>
+
+  <!-- ZXing (barcode scanning) -->
+  <script src="https://unpkg.com/@zxing/library@0.21.2/umd/index.min.js"></script>
+</head>
+<body>
+  <div class="app">
+
+    <!-- HEADER -->
+    <header class="topbar">
+      <div class="title">Route Box Counter</div>
+      <div class="status" id="netStatus">● online</div>
+    </header>
+
+    <!-- LOGIN -->
+    <section class="card" id="viewLogin">
+      <h1>Enter PIN</h1>
+
+      <div class="pinRow">
+        <input id="pinInput" inputmode="numeric" pattern="[0-9]*" maxlength="8" placeholder="PIN" />
+        <button id="btnLogin" class="primary">Login</button>
+      </div>
+
+      <div class="hint">
+        Warehouse / Leader roles are assigned by PIN.
+      </div>
+
+      <div class="msg" id="loginMsg"></div>
+    </section>
+
+    <!-- WAREHOUSE VIEW -->
+    <section class="card hidden" id="viewWarehouse">
+      <div class="row between">
+        <h1>Scan mode</h1>
+        <button id="btnLogout1" class="ghost">Logout</button>
+      </div>
+
+      <div class="cameraWrap">
+        <video id="video" playsinline></video>
+        <div class="focusBox"></div>
+      </div>
+
+      <div class="row gap">
+        <button id="btnStartScan" class="primary">Start scanning</button>
+        <button id="btnStopScan" class="ghost">Stop</button>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="last">
+        <div class="label">Last scan</div>
+        <div class="big" id="lastGb">—</div>
+        <div class="mid" id="lastRoute">—</div>
+        <div class="tag" id="lastResult">READY</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="progressBlock">
+        <div class="label">Route progress</div>
+        <div class="big" id="routeLine">—</div>
+        <div class="bar"><div class="barFill" id="barFill"></div></div>
+        <div class="mid" id="countLine">—</div>
+      </div>
+
+      <div class="msg" id="scanMsg"></div>
+    </section>
+
+    <!-- LEADER VIEW -->
+    <section class="card hidden" id="viewLeader">
+      <div class="row between">
+        <h1>Leader dashboard</h1>
+        <button id="btnLogout2" class="ghost">Logout</button>
+      </div>
+
+      <div class="sub">
+        Shift: <span id="shiftId">—</span>
+      </div>
+
+      <div class="row gap">
+        <button id="btnRefresh" class="primary">Refresh</button>
+        <button id="btnReset" class="danger">Load new GB (reset)</button>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="tableWrap">
+        <table id="routesTable">
+          <thead>
+            <tr>
+              <th>Route</th>
+              <th>Count</th>
+              <th>Target</th>
+              <th>%</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="row between">
+        <div>UNKNOWN: <b id="unknownCount">0</b></div>
+        <div>DUPLICATE: <b id="dupCount">0</b></div>
+      </div>
+
+      <div class="msg" id="leaderMsg"></div>
+    </section>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
