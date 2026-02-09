@@ -1,3 +1,5 @@
+document.addEventListener("DOMContentLoaded", () => {
+
 // ====== CONFIG ======
 const API_URL = "https://script.google.com/macros/s/AKfycbyC_SDp6SBZPcVWh59U5m5WE1jbO8nSpmvXSo4iqF21lIa1Yu32DFgjJ6VhkCydCwmzEA/exec";
 
@@ -131,3 +133,4 @@ async function handleScan(gb) {
     scanMsg.textContent = "Network / API error.";
   }
 }
+});
